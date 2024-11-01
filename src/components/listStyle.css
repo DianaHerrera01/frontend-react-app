@@ -1,0 +1,106 @@
+/* Estilos para el botón de Crear Producto */
+.btn-create {
+    background-color: #0097B2; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 15px 30px; /* Espaciado interno más grande */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-right: 10px; /* Espacio entre botones */
+    margin-left: 0; /* Sin margen a la izquierda */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s; /* Transición suave */
+    font-size: 1.1em; /* Aumentar el tamaño de la fuente */
+}
+
+/* Color de fondo al pasar el mouse sobre el botón de Crear Producto */
+.btn-create:hover {
+    background-color: #5AA59B; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos para los otros botones */
+.btn {
+    background-color: #0097B2; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-right: 10px; /* Espacio entre botones */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+/* Color de fondo al pasar el mouse sobre los otros botones */
+.btn:hover {
+    background-color: #5AA59B; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos específicos para los botones de acción en la tabla */
+.table .btn-primary {
+    background-color: #007BFF; /* Color para el botón de Editar */
+}
+
+.table .btn-danger {
+    background-color: #dc3545; /* Color para el botón de Eliminar */
+}
+
+.table .btn-primary:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse para Editar */
+}
+
+.table .btn-danger:hover {
+    background-color: #c82333; /* Color de fondo al pasar el mouse para Eliminar */
+}
+
+/* Estilos para la tabla */
+.table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left; /* Alineación a la izquierda para contenido */
+    border: 1px solid #0097B2; /* Bordes de la tabla */
+}
+
+.table thead {
+    background-color: #0097B2; /* Color de fondo de la cabecera */
+    color: white; /* Color del texto en la cabecera */
+}
+
+/* Colores alternos para las filas */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f7f5; /* Color de las filas pares */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #FAFFFE; /* Color de las filas impares */
+}
+
+/* Efecto hover en las filas */
+.table tbody tr:hover {
+    background-color: #9FE2BF; /* Color al pasar el mouse sobre la fila */
+}
+
+/* Estilo para la columna de acciones en la tabla */
+.table tbody td.actions {
+    display: flex; /* Usar flexbox para alinear botones en línea */
+    justify-content: center; /* Centra los botones horizontalmente */
+}
+
+
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px; /* Espacio encima del título */
+    margin-bottom: 30px; /* Espacio debajo del título */
+}

@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+/* Estilos para el encabezado */
+header {
+  background-color: #9FE2BF; 
+  padding: 20px 0; 
+  width: 100%; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header .row {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* Distribuye el espacio entre las columnas */
+}
+
+header .col-md-6 {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+header img {
+  max-width: 100%; /* Ajusta las imagenes al ancho del contenedor */
+  height: auto; /* Mantiene la proporción de altura de las imágenes */
+}
+
+
+/* Navegacion*/
+nav.navbar {
+  background-color: #5ac1b4; /* Color de fondo para la barra de navegacion */
+}
+.navbar-nav .nav-item:hover > .nav-link {
+  color: #000000;
+}
+
+.navbar-nav .nav-link {
+  color: white; /* Color del texto de los enlaces */
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: #9FE2BF; /* Color de fondo al pasar el cursor */
+  color: #fff; /* Color del texto al pasar el cursor */
+}
+
+.dropdown-menu {
+  background-color: #5ac1b4; /* Color de fondo para los submenús */
+}
+
+.dropdown-menu .dropdown-item {
+  color: white; /* Color del texto en los submenús */
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #9FE2BF; /* Color de fondo al pasar el cursor sobre los elementos del submenú */
+  color: #000000; /* Color del texto al pasar el cursor sobre los elementos del submenú */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* Color del borde del botón de navegación */
+}
+
+.navbar-toggler-icon {
+  background-color: #5ac1b4; /* Color del icono del botón de navegación */
+}
+
+.navbar-collapse {
+  flex-grow: 1;
+}
+
+
+
+/* Pie de página */
+.footer {
+  height: 120px;
+  text-align: center;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: #0097B2;
+  padding: 20px 0;
 }
