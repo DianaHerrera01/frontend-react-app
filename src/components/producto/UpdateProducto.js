@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api';
-import './formStyle.css';
+import api from '../../api'; 
+import '../formStyle.css';
 
 const UpdateProducto = () => {
     const { id_producto } = useParams();
@@ -100,7 +100,10 @@ const UpdateProducto = () => {
             />
             <select
                 value={producto.categoria ? producto.categoria.categoriaID : ''}
-                onChange={e => setProducto({ ...producto, categoria: categorias.find(c => c.categoriaID === e.target.value) })}
+                onChange={e => {
+                    const selectedCategoria = categorias.find(c => c.categoriaID === parseInt(e.target.value));
+                    setProducto({ ...producto, categoria: selectedCategoria });
+                }}
                 required
             >
                 <option value="">Selecciona una categoría</option>

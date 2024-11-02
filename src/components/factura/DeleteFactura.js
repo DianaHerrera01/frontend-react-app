@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
-import './formStyle.css';
+import '../formStyle.css';
 
 const DeleteFactura = () => {
     const [facturas, setFacturas] = useState([]);

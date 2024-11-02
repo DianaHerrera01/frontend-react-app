@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api';
-import './formStyle.css';
+import { useNavigate } from 'react-router-dom';
+import api from '../../api'; 
+import '../formStyle.css';
 
-const UpdateFactura = () => {
-    const { id_factura } = useParams();
+const CreateFactura = () => {
     const navigate = useNavigate();
-    
     const [cliente, setCliente] = useState('');
     const [tipoDocumento, setTipoDocumento] = useState('');
     const [fechaEmision, setFechaEmision] = useState('');
@@ -16,20 +14,6 @@ const UpdateFactura = () => {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        const fetchFactura = async () => {
-            try {
-                const response = await api.get(`/facturas/${id_factura}/`);
-                const { cliente, tipo_documento, fecha_emision, detalles } = response.data;
-                setCliente(cliente); // Asegúrate de que esto sea un ID
-                setTipoDocumento(tipo_documento); // Asegúrate de que esto sea un ID
-                setFechaEmision(fecha_emision);
-                setDetalles(detalles.map(d => ({ producto: d.producto, cantidad: d.cantidad }))); // Asegúrate de que 'producto' sea el ID
-            } catch (error) {
-                console.error("Error al cargar la factura:", error);
-                alert('No se pudo cargar la factura');
-            }
-        };
-
         const fetchClientes = async () => {
             try {
                 const response = await api.get('/clientes/');
@@ -38,7 +22,7 @@ const UpdateFactura = () => {
                 console.error("Error al cargar los clientes:", error);
             }
         };
-
+    
         const fetchTiposDocumento = async () => {
             try {
                 const response = await api.get('/tipos-documento/');
@@ -47,7 +31,7 @@ const UpdateFactura = () => {
                 console.error("Error al cargar los tipos de documento:", error);
             }
         };
-
+    
         const fetchProductos = async () => {
             try {
                 const response = await api.get('/productos/');
@@ -56,17 +40,16 @@ const UpdateFactura = () => {
                 console.error("Error al cargar los productos:", error);
             }
         };
-
-        fetchFactura();
+    
         fetchClientes();
         fetchTiposDocumento();
         fetchProductos();
-    }, [id_factura]);
-
+    }, []);
+    
     const handleDetailChange = (index, e) => {
         const values = [...detalles];
         values[index][e.target.name] = e.target.value;
-        setDetalles(values);
+        setDetalles(values); // Asegura la actualización del estado
     };
 
     const addDetail = () => {
@@ -82,7 +65,7 @@ const UpdateFactura = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const updatedFactura = {
+            const nuevaFactura = {
                 cliente,
                 tipo_documento: tipoDocumento,
                 fecha_emision: fechaEmision,
@@ -92,18 +75,22 @@ const UpdateFactura = () => {
                 })),
             };
 
-            await api.put(`/facturas/${id_factura}/`, updatedFactura);
-            alert('Factura actualizada correctamente');
+            await api.post('/facturas/', nuevaFactura);
+            alert("Factura creada exitosamente");
             navigate('/facturas/');
         } catch (error) {
-            console.error("Error al actualizar la factura:", error);
-            alert("Error al actualizar la factura");
+            console.error("Error al crear la factura:", error);
+            alert("Error al crear la factura");
         }
+    };
+
+    const handleCancel = () => {
+        navigate('/facturas/');
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Actualizar Factura</h2>
+            <h2>Crear Factura</h2>
             <select value={cliente} onChange={(e) => setCliente(e.target.value)} required>
                 <option value="">Selecciona un cliente</option>
                 {clientes.map(cliente => (
@@ -125,7 +112,6 @@ const UpdateFactura = () => {
             <input 
                 type="date" 
                 placeholder="Fecha de Emisión" 
-                value={fechaEmision} 
                 onChange={(e) => setFechaEmision(e.target.value)} 
                 required 
             />
@@ -159,10 +145,10 @@ const UpdateFactura = () => {
             ))}
             <button type="button" className="add-detail" onClick={addDetail}>Agregar Detalle</button>
 
-            <button type="submit">Actualizar Factura</button>
-            <button type="button" onClick={() => navigate('/facturas/')}>Cancelar</button>
+            <button type="submit" >Crear Factura</button>
+            <button type="button" onClick={handleCancel}>Cancelar</button>
         </form>
     );
 };
 
-export default UpdateFactura;
+export default CreateFactura;

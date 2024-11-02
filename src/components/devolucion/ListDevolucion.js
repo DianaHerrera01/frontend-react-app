@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api'; 
-import './listStyle.css';
+import api from '../../api'; 
+import '../listStyle.css';
 
 const ListDevoluciones = () => {
     const [devoluciones, setDevoluciones] = useState([]);

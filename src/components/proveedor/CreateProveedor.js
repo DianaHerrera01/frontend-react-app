@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; // Mantén useEffect
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import api from '../api'; 
-import './formStyle.css';
+import api from '../../api'; 
+import '../formStyle.css';
 
 const CreateProveedor = () => {
     const navigate = useNavigate(); // Inicializa useNavigate

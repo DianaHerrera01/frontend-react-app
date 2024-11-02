@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
-import api from '../api';  
+import api from '../../api';  
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import './formStyle.css';
+import '../formStyle.css';
 
 const DeletePedido = () => {
     const [pedidos, setPedidos] = useState([]);

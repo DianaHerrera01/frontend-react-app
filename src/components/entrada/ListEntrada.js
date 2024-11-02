@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import api from '../api'; 
-import './listStyle.css'; 
+import api from '../../api'; 
+import '../listStyle.css'; 
 
 const ListEntrada = () => {
     const [entradas, setEntradas] = useState([]);
