@@ -31,6 +31,10 @@ const ListProductos = () => {
     const handleCreate = () => {
         navigate('/nuevo'); // Redirige al formulario de creación de producto
     };
+
+    const handleGoToCategorias = () => {
+        navigate('/categorias'); // Redirige a la página de gestión de categorías
+    };
     
     return (
         <div>
@@ -69,6 +73,7 @@ const ListProductos = () => {
                     ))}
                 </tbody>
             </table>
+            <button onClick={handleGoToCategorias} className="btn btn-info">Gestión de Categorías</button> 
         </div>
     );
 };

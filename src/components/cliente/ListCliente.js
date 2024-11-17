@@ -31,6 +31,9 @@ const ListClientes = () => {
     const handleCreate = () => {
         navigate('/nuevo-cliente'); // Redirige al formulario de creación de cliente
     };
+    const handleRedirectToTipoDocumento = () => {
+        navigate('/tipos-documento'); // Redirigir a la lista de tipos de documento
+    };
     
     return (
         <div>
@@ -67,6 +70,10 @@ const ListClientes = () => {
                     ))}
                 </tbody>
             </table>
+            {/* Botón para redirigir a la lista de tipos de documento */}
+            <button onClick={handleRedirectToTipoDocumento} className="btn btn-info">
+                Gestión de Tipo de Documentos
+            </button>
         </div>
     );
 };

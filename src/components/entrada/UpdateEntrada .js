@@ -8,6 +8,7 @@ const UpdateEntrada = () => {
     const navigate = useNavigate();
 
     const [entrada, setEntrada] = useState({
+        pedido: null,
         producto: null,
         categoria: null,
         proveedor: null,
@@ -19,6 +20,7 @@ const UpdateEntrada = () => {
     const [productos, setProductos] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [proveedores, setProveedores] = useState([]);
+    const [pedidos, setPedidos] = useState([]);
 
     useEffect(() => {
         const fetchEntrada = async () => {
@@ -58,17 +60,27 @@ const UpdateEntrada = () => {
             }
         };
 
+        const fetchPedidos = async () => { // Agregar carga de pedidos
+            try {
+                const response = await api.get('/pedidos/');
+                setPedidos(response.data);
+            } catch (error) {
+                console.error("Error al cargar los pedidos:", error);
+            }
+        };
+
         fetchEntrada();
         fetchProductos();
         fetchCategorias();
         fetchProveedores();
+        fetchPedidos(); 
     }, [id_entrada]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const updatedEntrada = {
-                pedido: entrada.pedido ? entrada.pedido.id : null, // Añade este campo si pedido es requerido
+                pedido: entrada.pedido ? entrada.pedido.id_orden_pedido : null, 
                 producto: entrada.producto ? entrada.producto.id_producto : null,
                 categoria: entrada.categoria ? entrada.categoria.categoriaID : null,
                 proveedor: entrada.proveedor ? entrada.proveedor.id_proveedor : null,
@@ -90,6 +102,18 @@ const UpdateEntrada = () => {
     return (
         <form onSubmit={handleSubmit}>
             <h3>Editar Entrada</h3>
+            <select
+                value={entrada.pedido ? entrada.pedido.id_orden_pedido : ''}
+                onChange={e => setEntrada({ ...entrada, pedido: pedidos.find(p => p.id_orden_pedido === parseInt(e.target.value)) })}
+                required
+            >
+                <option value="">Selecciona un pedido</option>
+                {pedidos.map(pedido => (
+                    <option key={pedido.id_orden_pedido} value={pedido.id_orden_pedido}>
+                        {pedido.id_orden_pedido} {}
+                    </option>
+                ))}
+            </select>
             <select
                 value={entrada.producto ? entrada.producto.id_producto : ''}
                 onChange={e => setEntrada({ ...entrada, producto: productos.find(p => p.id_producto === parseInt(e.target.value)) })}

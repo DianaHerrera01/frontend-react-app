@@ -6,7 +6,7 @@ import '../formStyle.css';
 const UpdateProveedor = () => {
     const { id_proveedor } = useParams();
     const navigate = useNavigate();
-    
+
     const [proveedor, setProveedor] = useState({
         nombre_proveedor: '',
         apellidos_proveedor: '',
@@ -14,39 +14,65 @@ const UpdateProveedor = () => {
         direccion: '',
         telefono: '',
     });
-    
+
+    const [productosServicios, setProductosServicios] = useState([]); // Estado para productos-servicios seleccionados
+    const [productosServiciosList, setProductosServiciosList] = useState([]); // Lista de productos-servicios disponibles
+
     useEffect(() => {
         const fetchProveedor = async () => {
             try {
                 const response = await api.get(`/proveedores/${id_proveedor}/`);
                 setProveedor(response.data);
+                if (response.data.productos_servicios) {
+                    setProductosServicios(response.data.productos_servicios.map((item) => item.id_producto_servicio));
+                }
             } catch (error) {
                 console.error("Error al cargar el proveedor:", error);
                 alert('No se pudo cargar el proveedor');
             }
         };
 
+        const fetchProductosServicios = async () => {
+            try {
+                const response = await api.get('/productos-servicios/');
+                setProductosServiciosList(response.data);
+            } catch (error) {
+                console.error("Error al cargar los productos-servicios:", error);
+            }
+        };
+
         fetchProveedor();
+        fetchProductosServicios();
     }, [id_proveedor]);
+
+    const handleProductoServicioChange = (e) => {
+        const { value, checked } = e.target;
+        const idValue = parseInt(value, 10);
+
+        setProductosServicios((prev) => {
+            if (checked) {
+                return [...prev, idValue];
+            } else {
+                return prev.filter((item) => item !== idValue);
+            }
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const updatedProveedor = {
-                nombre_proveedor: proveedor.nombre_proveedor,
-                apellidos_proveedor: proveedor.apellidos_proveedor,
-                correo: proveedor.correo,
-                direccion: proveedor.direccion,
-                telefono: proveedor.telefono,
+                ...proveedor,
+                productos_servicios: productosServicios,
             };
 
-            console.log('Proveedor a actualizar:', updatedProveedor);
             await api.put(`/proveedores/${id_proveedor}/`, updatedProveedor);
             alert('Proveedor actualizado correctamente');
-            navigate('/proveedores/'); // Redirigir a la lista de proveedores
+            navigate('/proveedores/');
         } catch (error) {
             console.error('Error al actualizar el proveedor:', error.response ? error.response.data : error.message);
-            alert('Error al actualizar el proveedor');
+            alert('Error al actualizar el proveedor'+ (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
         }
     };
 
@@ -88,6 +114,24 @@ const UpdateProveedor = () => {
                 onChange={e => setProveedor({ ...proveedor, telefono: e.target.value })}
                 required
             />
+
+            <h3>Productos/Servicios</h3>
+            <div className="checkbox-group">
+                {productosServiciosList.map((producto) => (
+                    <div key={producto.id_producto_servicio}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value={producto.id_producto_servicio}  
+                                checked={productosServicios.includes(producto.id_producto_servicio)}
+                                onChange={handleProductoServicioChange}
+                            />
+                            {producto.nom_producto_serv}
+                        </label>
+                    </div>
+                ))}
+            </div>
+
             <button type="submit">Actualizar Proveedor</button>
             <button type="button" onClick={() => navigate('/proveedores/')}>Cancelar</button>
         </form>

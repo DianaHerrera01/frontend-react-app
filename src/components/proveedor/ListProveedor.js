@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
 import api from '../../api'; 
 import '../listStyle.css'; 
 
 const ListProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
-    const navigate = useNavigate(); // Inicializa useNavigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProveedores = async () => {
@@ -21,15 +21,18 @@ const ListProveedores = () => {
     }, []);
 
     const handleDelete = (id_proveedor) => {
-        navigate(`/eliminar-proveedor/${id_proveedor}`); // Redirigir a DeleteProveedor
+        navigate(`/eliminar-proveedor/${id_proveedor}`);
     };
 
     const handleEdit = (id_proveedor) => {
-        navigate(`/editar-proveedor/${id_proveedor}`); 
+        navigate(`/editar-proveedor/${id_proveedor}`);
     };
 
     const handleCreate = () => {
-        navigate('/nuevo-proveedor'); // Redirige al formulario de creación de proveedor
+        navigate('/nuevo-proveedor');
+    };
+    const handleGestionProductos = () => {
+        navigate('/productos-servicios');
     };
     
     return (
@@ -45,6 +48,7 @@ const ListProveedores = () => {
                         <th>Correo</th>
                         <th>Dirección</th>
                         <th>Teléfono</th>
+                        <th>Productos/Servicios</th>
                         <th className="actions">Acciones</th>
                     </tr>
                 </thead>
@@ -57,6 +61,13 @@ const ListProveedores = () => {
                             <td>{proveedor.correo}</td>
                             <td>{proveedor.direccion}</td>
                             <td>{proveedor.telefono}</td>
+                            <td>
+                                <ul>
+                                    {proveedor.productos_servicios.map(producto => (
+                                        <li key={producto.id_producto_servicio}>{producto.nom_producto_serv}</li>
+                                    ))}
+                                </ul>
+                            </td>
                             <td className="actions">
                                 <button onClick={() => handleEdit(proveedor.id_proveedor)} className="btn btn-primary">Editar</button>
                                 <button onClick={() => handleDelete(proveedor.id_proveedor)} className="btn btn-danger btnEliminacion">Eliminar</button>
@@ -65,6 +76,9 @@ const ListProveedores = () => {
                     ))}
                 </tbody>
             </table>
+            <button onClick={handleGestionProductos} className="btn btn-info mt-3">
+                Gestión de Productos/Servicios
+            </button>
         </div>
     );
 };

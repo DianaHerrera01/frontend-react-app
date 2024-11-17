@@ -21,6 +21,7 @@ form input[type="text"],
 form input[type="tel"],
 form input[type="number"],
 form input[type="date"],
+form input[type="password"],
 form textarea,
 form select {
     width: 100%; /* Ancho completo */
@@ -29,6 +30,9 @@ form select {
     border: 1px solid #0097B2; /* Borde del campo */
     border-radius: 4px; /* Bordes redondeados */
     box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+.btn-info {
+    margin-bottom: 20px; /* Añade espacio debajo del botón */
 }
 
 /* Contenedor para los botones */
@@ -72,3 +76,28 @@ form button.add-detail {
 form button.add-detail:hover {
     background-color: #5AA59B; /* Verde azulado oscuro en hover */
 }
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-group div {
+    margin-bottom: 10px;
+}
+
+/* Estilo para el contenedor de la contraseña */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Estilo para el ícono del ojo */
+  .password-container i {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
